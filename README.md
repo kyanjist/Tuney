@@ -2,9 +2,7 @@
 
 Tuney è un'applicazione desktop social che permette agli amanti della musica di pubblicare recensioni, interagire con gli altri utenti e scoprire nuovi brani e album.
 
-Il progetto è stato sviluppato per l'esame di **User Interfaces Design** all'Università della Calabria. L'applicazione è già pre-popolata con profili, recensioni, commenti e interazioni per simulare un social network musicale vivo e attivo.
-
----
+Il progetto è stato sviluppato per l'esame di **User Interfaces Design** all'Università della Calabria. L'applicazione è già pre-popolata con profili, recensioni, commenti e interazioni per simulare un social network attivo.
 
 ## Funzionalità principali
 
@@ -15,14 +13,10 @@ Il progetto è stato sviluppato per l'esame di **User Interfaces Design** all'Un
 - **Statistiche**: calcolo automatico delle statistiche basate sui voti assegnati (distribuzione dei voti per profilo e per elemento).
 - **Integrazione Spotify & Cache Locale**: sfrutta le API di Spotify per ricavare metadati e copertine. Una volta salvati nel database locale, tutti i dati restano accessibili anche offline.
 
----
-
 ## Requisiti
 
 - **Java 19** o superiore (consigliato **Java 21 LTS**)
 - **Maven** 3.8+
-
----
 
 ## Esecuzione rapida
 
@@ -35,8 +29,6 @@ mvn clean javafx:run
 ```
 
 All'avvio puoi accedere con gli account di test esistenti oppure **creare un nuovo account** tramite la schermata di registrazione.
-
----
 
 ## Configurazione Spotify (Opzionale)
 
@@ -60,8 +52,6 @@ Le credenziali Spotify for Developers sono richieste **esclusivamente** se desid
 
 > **Nota:** se le credenziali non vengono inserite, l'applicazione continuerà a funzionare regolarmente sfruttando i dati locali memorizzati nel database.
 
----
-
 ## Tecnologie utilizzate
 
 - **Java 19** & **JavaFX** — Interfaccia grafica (FXML e CSS personalizzato)
@@ -69,8 +59,6 @@ Le credenziali Spotify for Developers sono richieste **esclusivamente** se desid
 - **Spotify Web API** & **Unirest** — Integrazione catalogo musicale
 - **Spring Security Crypto (BCrypt)** — Hashing sicuro delle password
 - **org.json** — Parsing risposte JSON
-
----
 
 ## Licenza
 

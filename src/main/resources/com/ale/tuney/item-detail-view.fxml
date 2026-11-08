@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane"
+        prefHeight="800.0" prefWidth="1280.0"
+        style="-fx-background-color: #090909;"
+        stylesheets="@style.css"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.ale.tuney.controller.ItemDetailController">
+    <padding><Insets bottom="10" left="10" right="10" top="10"/></padding>
+
+    <!-- CENTRO -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    style="-fx-background: #141414; -fx-background-color: #141414; -fx-border-color: transparent;">
+            <content>
+                <VBox spacing="0"
+                      style="-fx-background-color: #141414; -fx-background-radius: 16;">
+
+                    <!-- Torna indietro in alto a sinistra -->
+                    <HBox alignment="CENTER_LEFT">
+                        <padding><Insets top="24" left="40" right="40" bottom="12"/></padding>
+                        <children>
+                            <Button onAction="#goBack" styleClass="btn-back" text="← Torna indietro"/>
+                        </children>
+                    </HBox>
+
+                    <!-- cover e info -->
+                    <HBox spacing="32" alignment="CENTER_LEFT"
+                          style="-fx-background-color: #141414; -fx-background-radius: 16 16 0 0;">
+                        <padding><Insets bottom="32" left="40" right="40" top="16"/></padding>
+                        <children>
+                            <!-- Copertina -->
+                            <ImageView fx:id="cover"
+                                       fitHeight="220" fitWidth="220"
+                                       pickOnBounds="true" preserveRatio="true"
+                                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 20, 0, 0, 6);"/>
+
+                            <!-- Info testo -->
+                            <VBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="typeLabel" text="" textFill="#9b6fd4">
+                                    <font><Font name="System Bold" size="13"/></font>
+                                </Label>
+                                <Label fx:id="titleLabel" text="" textFill="WHITE"
+                                       wrapText="true" maxWidth="500">
+                                    <font><Font name="System Bold" size="34"/></font>
+                                </Label>
+                                <Label fx:id="artistLabel" text="" textFill="#b3b3b3">
+                                    <font><Font size="18"/></font>
+                                </Label>
+                                <Label fx:id="yearLabel" text="" textFill="#888">
+                                    <font><Font size="14"/></font>
+                                </Label>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <VBox.margin><Insets top="12"/></VBox.margin>
+                                    <children>
+                                        <Button fx:id="btnScriviRecensione" onAction="#writeReview" styleClass="btn-settings-primary" text="Recensisci" prefHeight="40" />
+                                        <Button fx:id="saveItemLabel" onAction="#toggleSaveItem"
+                                                prefWidth="40" prefHeight="40" minWidth="40" minHeight="40" maxWidth="40" maxHeight="40"
+                                                styleClass="btn-save-circle">
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </VBox>
+                        </children>
+                    </HBox>
+
+                    <!-- Separatore -->
+                    <Separator opacity="0.15">
+                        <VBox.margin><Insets left="40" right="40"/></VBox.margin>
+                    </Separator>
+
+                    <!-- tracklist (solo album) -->
+                    <VBox fx:id="tracklistSection" spacing="0" visible="false" managed="false">
+                        <padding><Insets bottom="0" left="40" right="40" top="28"/></padding>
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label text="Tracklist" textFill="WHITE">
+                                    <font><Font name="System Bold" size="22"/></font>
+                                </Label>
+                                <ProgressIndicator fx:id="tracklistProgress"
+                                                   prefWidth="20" prefHeight="20"
+                                                   managed="false" visible="false"/>
+                            </HBox>
+                            <VBox fx:id="tracklistContainer" spacing="0">
+                                <VBox.margin><Insets top="12"/></VBox.margin>
+                            </VBox>
+                        </children>
+                    </VBox>
+
+                    <!-- Separatore tracklist/recensioni -->
+                    <Separator fx:id="tracklistSeparator" opacity="0.15" visible="false" managed="false">
+                        <VBox.margin><Insets left="40" right="40" top="8"/></VBox.margin>
+                    </Separator>
+
+                    <!-- Sezione recensioni -->
+                    <VBox spacing="16">
+                        <padding><Insets bottom="40" left="40" right="40" top="28"/></padding>
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label text="Recensioni" textFill="WHITE">
+                                    <font><Font name="System Bold" size="22"/></font>
+                                </Label>
+                                <ProgressIndicator fx:id="progressIndicator"
+                                                   prefWidth="22" prefHeight="22"
+                                                   managed="false" visible="false"/>
+                            </HBox>
+
+                            <Label fx:id="noReviewLabel"
+                                   text="Ancora nessuna recensione. Sii il primo!"
+                                   textFill="#555" managed="false" visible="false">
+                                <font><Font size="14"/></font>
+                            </Label>
+
+                            <VBox fx:id="reviewsContainer" spacing="16"/>
+
+                            <!-- STATISTICHE RECENSIONI -->
+                            <VBox fx:id="reviewsStatsBox" spacing="16.0">
+                                <children>
+                                    <Separator opacity="0.3" />
+                                    <Label text="Statistiche" textFill="WHITE">
+                                        <font><Font name="System Bold" size="20.0" /></font>
+                                    </Label>
+                                    
+                                    <!-- Box Dati Statistiche (mostrato se ci sono recensioni) -->
+                                    <VBox fx:id="statsDataBox" spacing="16.0" visible="false" managed="false">
+                                        <children>
+                                            <!-- Sezione Superiore: Media Voto e Note musicale -->
+                                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                                <children>
+                                                    <VBox spacing="2.0">
+                                                        <children>
+                                                            <Label fx:id="avgRatingLabel" text="0.0" textFill="WHITE">
+                                                                <font><Font name="System Bold" size="48.0" /></font>
+                                                            </Label>
+                                                            <Label fx:id="totalReviewsSublabel" text="media su 0 recensioni" textFill="#888888">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </HBox>
+                                            
+                                            <VBox spacing="8.0" style="-fx-padding: 8 0 8 0;">
+                                                <children>
+                                                    <!-- Riga 5 -->
+                                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                        <children>
+                                                            <Label text="5" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                <font><Font name="System Bold" size="13.0" /></font>
+                                                            </Label>
+                                                            <ProgressBar fx:id="bar5" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                            <Label fx:id="count5" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <!-- Riga 4 -->
+                                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                        <children>
+                                                            <Label text="4" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                <font><Font name="System Bold" size="13.0" /></font>
+                                                            </Label>
+                                                            <ProgressBar fx:id="bar4" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                            <Label fx:id="count4" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <!-- Riga 3 -->
+                                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                        <children>
+                                                            <Label text="3" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                <font><Font name="System Bold" size="13.0" /></font>
+                                                            </Label>
+                                                            <ProgressBar fx:id="bar3" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                            <Label fx:id="count3" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <!-- Riga 2 -->
+                                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                        <children>
+                                                            <Label text="2" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                <font><Font name="System Bold" size="13.0" /></font>
+                                                            </Label>
+                                                            <ProgressBar fx:id="bar2" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                            <Label fx:id="count2" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <!-- Riga 1 -->
+                                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                        <children>
+                                                            <Label text="1" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                <font><Font name="System Bold" size="13.0" /></font>
+                                                            </Label>
+                                                            <ProgressBar fx:id="bar1" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                            <Label fx:id="count1" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                <font><Font size="13.0" /></font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </VBox>
+                                    
+                                    <!-- Statistiche vuote -->
+                                    <VBox fx:id="emptyStatsBox" spacing="8" alignment="CENTER_LEFT" visible="false" managed="false">
+                                        <children>
+                                            <Label fx:id="emptyStatsLabel" text="Non è possibile calcolare le statistiche per questo elemento." textFill="#888888">
+                                                <font><Font size="14.0" /></font>
+                                            </Label>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,5 @@
+# Inserisci le tue credenziali Spotify for Developers
+# Puoi ottenerle da: https://developer.spotify.com/dashboard
+spotify.client.id=YOUR_CLIENT_ID
+spotify.client.secret=YOUR_CLIENT_SECRET
+

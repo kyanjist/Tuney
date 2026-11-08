@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane
+        prefHeight="800.0" prefWidth="1280.0"
+        style="-fx-background-color: #090909;"
+        stylesheets="@style.css"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.ale.tuney.controller.ReviewDetailController">
+    <padding><Insets bottom="10" left="10" right="10" top="10"/></padding>
+
+    <!-- CENTRO -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    style="-fx-background: #141414; -fx-background-color: #141414;
+                           -fx-border-color: transparent; -fx-background-radius: 16;">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="20"
+                      style="-fx-background-color: #141414; -fx-background-radius: 16;">
+                    <padding><Insets bottom="40" left="50" right="50" top="30"/></padding>
+                    <children>
+
+                        <!-- Header -->
+                        <StackPane maxWidth="Infinity">
+                            <children>
+                                <Label text="Recensione" textFill="WHITE" StackPane.alignment="CENTER">
+                                    <font><Font name="System Bold" size="28"/></font>
+                                </Label>
+                                <Button onAction="#backToHome" StackPane.alignment="CENTER_LEFT"
+                                        styleClass="btn-back"
+                                        text="← Torna indietro"/>
+                            </children>
+                        </StackPane>
+
+                        <!-- Separatore sotto titolo -->
+                        <Separator maxWidth="Infinity">
+                            <padding><Insets bottom="10" top="4"/></padding>
+                        </Separator>
+
+                        <!-- Autore -->
+                        <Label fx:id="authorLabel" text="" textFill="#9b6fd4">
+                            <font><Font name="System Bold" size="22"/></font>
+                        </Label>
+
+                        <!-- HEADER ORIZZONTALE -->
+                        <HBox alignment="CENTER">
+                            <HBox alignment="TOP_LEFT" spacing="24" maxWidth="560">
+                                <children>
+
+                                    <!-- Copertina -->
+                                    <ImageView fx:id="albumCover"
+                                               fitHeight="180" fitWidth="180"
+                                               pickOnBounds="true" preserveRatio="true"/>
+
+                                    <!-- Info a destra -->
+                                    <VBox alignment="TOP_LEFT" spacing="16" HBox.hgrow="ALWAYS"
+                                          prefHeight="180" minHeight="180" maxHeight="180">
+                                        <children>
+                                            <Label fx:id="titleLabel" text="" textFill="WHITE" wrapText="true">
+                                                <font><Font name="System Bold" size="22"/></font>
+                                            </Label>
+                                            <Label fx:id="artistLabel" text="" textFill="#b3b3b3" wrapText="true">
+                                                <font><Font size="15"/></font>
+                                            </Label>
+
+                                            <Region VBox.vgrow="ALWAYS" />
+
+                                            <!-- Riga icone -->
+                                            <HBox alignment="CENTER_LEFT" spacing="20">
+                                                <children>
+                                                    <HBox alignment="CENTER" spacing="8" style="-fx-cursor: hand;" onMouseClicked="#toggleSaveItem">
+                                                        <children>
+                                                            <SVGPath fx:id="saveIcon"
+                                                                     content="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                                                                     fill="transparent"
+                                                                     stroke="#b3b3b3"
+                                                                     strokeWidth="1.5"
+                                                                     scaleX="1.1"
+                                                                     scaleY="1.1"/>
+                                                            <Label fx:id="saveCountLabel" text="0" textFill="#b3b3b3" style="-fx-font-size: 14px;"/>
+                                                        </children>
+                                                    </HBox>
+
+                                                    <HBox alignment="CENTER" spacing="8" style="-fx-cursor: hand;" onMouseClicked="#handleLikeClicked">
+                                                        <children>
+                                                            <SVGPath fx:id="likeIcon"
+                                                                     content="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                                                     fill="transparent"
+                                                                     stroke="#b3b3b3"
+                                                                     strokeWidth="1.5"/>
+                                                            <Label fx:id="likeCountLabel" text="0" textFill="#b3b3b3" style="-fx-font-size: 14px; -fx-cursor: hand;" onMouseClicked="#handleShowLikers"/>
+                                                        </children>
+                                                    </HBox>
+
+                                                    <HBox alignment="CENTER" spacing="8" style="-fx-cursor: hand;" onMouseClicked="#handleFocusComment">
+                                                        <children>
+                                                            <SVGPath fx:id="commentIcon"
+                                                                     content="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                                                                     fill="transparent"
+                                                                     stroke="#b3b3b3"
+                                                                     strokeWidth="1.5"/>
+                                                            <Label fx:id="commentCountLabel" text="0" textFill="#b3b3b3" style="-fx-font-size: 14px;"/>
+                                                        </children>
+                                                    </HBox>
+                                                </children>
+                                            </HBox>
+
+                                            <Region VBox.vgrow="ALWAYS" />
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                        </HBox>
+
+                        <!-- Stelline -->
+                        <HBox fx:id="stelleBox" alignment="CENTER" spacing="8">
+                            <children>
+                                <Label fx:id="star1" text="★"
+                                       style="-fx-text-fill: #444; -fx-cursor: default;">
+                                    <font><Font size="44"/></font>
+                                </Label>
+                                <Label fx:id="star2" text="★"
+                                       style="-fx-text-fill: #444; -fx-cursor: default;">
+                                    <font><Font size="44"/></font>
+                                </Label>
+                                <Label fx:id="star3" text="★"
+                                       style="-fx-text-fill: #444; -fx-cursor: default;">
+                                    <font><Font size="44"/></font>
+                                </Label>
+                                <Label fx:id="star4" text="★"
+                                       style="-fx-text-fill: #444; -fx-cursor: default;">
+                                    <font><Font size="44"/></font>
+                                </Label>
+                                <Label fx:id="star5" text="★"
+                                       style="-fx-text-fill: #444; -fx-cursor: default;">
+                                    <font><Font size="44"/></font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- Testo recensione -->
+                        <TextArea fx:id="reviewText"
+                                  maxWidth="500" prefHeight="120"
+                                  editable="false"
+                                  wrapText="true"
+                                  style="-fx-control-inner-background: #0d0d0d;
+                                         -fx-text-fill: white;
+                                         -fx-border-color: transparent;
+                                         -fx-background-radius: 8;
+                                         -fx-font-size: 14px;"/>
+
+                        <!-- Modifica / Elimina -->
+                        <HBox fx:id="ownerButtons" alignment="CENTER" spacing="20" maxWidth="500">
+                            <padding><Insets bottom="24"/></padding>
+                            <children>
+                                <Button fx:id="editButton" onAction="#onEdit" managed="false" visible="false"
+                                        prefHeight="48" styleClass="btn-primary" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-radius: 24; -fx-font-size: 15px;"
+                                        text="MODIFICA"/>
+                                <Button fx:id="deleteButton"
+                                        onAction="#onDelete"
+                                        managed="false" visible="false"
+                                        prefHeight="48" styleClass="btn-outline" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-radius: 24; -fx-border-radius: 24; -fx-font-size: 15px;"
+                                        text="ELIMINA"/>
+                            </children>
+                        </HBox>
+
+                        <!-- Salva / Annulla -->
+                        <HBox fx:id="editButtons" alignment="CENTER" spacing="20" maxWidth="500">
+                            <padding><Insets bottom="24"/></padding>
+                            <children>
+                                <Button fx:id="saveButton" onAction="#onSave" managed="false" visible="false"
+                                        prefHeight="48" styleClass="btn-primary" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-radius: 24; -fx-font-size: 15px;"
+                                        text="SALVA"/>
+                                <Button fx:id="cancelEditButton"
+                                        onAction="#onCancelEdit"
+                                        managed="false" visible="false"
+                                        prefHeight="48" styleClass="btn-outline" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-radius: 24; -fx-border-radius: 24; -fx-font-size: 15px;"
+                                        text="ANNULLA"/>
+                            </children>
+                        </HBox>
+
+                        <!-- Errore -->
+                        <Label fx:id="errorLabel" text="" textFill="#e74c3c"
+                               managed="false" visible="false">
+                            <font><Font size="12"/></font>
+                        </Label>
+
+                        <!-- Progress -->
+                        <ProgressIndicator fx:id="progressIndicator"
+                                           prefWidth="28" prefHeight="28"
+                                           managed="false" visible="false"/>
+
+                        <!-- Separatore prima dei commenti -->
+                        <Separator prefWidth="560" maxWidth="560">
+                            <padding><Insets bottom="10" top="10"/></padding>
+                        </Separator>
+
+                        <!-- COMMENTI -->
+                        <VBox fx:id="commentSectionContainer" maxWidth="560" spacing="15" alignment="TOP_LEFT">
+                            <children>
+                                <Label text="Commenti" textFill="WHITE">
+                                    <font><Font name="System Bold" size="18"/></font>
+                                </Label>
+
+                                <!-- Container commenti caricati -->
+                                <VBox fx:id="commentsContainer" spacing="12" />
+
+                                <!-- Input nuovo commento -->
+                                <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
+                                    <children>
+                                        <TextField fx:id="newCommentField" promptText="Scrivi un commento..." HBox.hgrow="ALWAYS"
+                                                   style="-fx-background-color: #0d0d0d; -fx-text-fill: white; -fx-border-color: #333; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 8 16 8 16; -fx-font-size: 14px;"/>
+                                        <Button fx:id="btnInviaCommento" onAction="#handleSendComment"
+                                                style="-fx-background-color: #6b3fa0; -fx-text-fill: white; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-font-size: 14px;"
+                                                text="Invia"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

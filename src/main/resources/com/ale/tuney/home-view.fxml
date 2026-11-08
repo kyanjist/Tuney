@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<BorderPane fx:id="root"
+            onMouseDragged="#moveWindow"
+            onMousePressed="#makeDraggable"
+            prefHeight="800.0"
+            prefWidth="1280.0"
+            style="-fx-background-color: #090909;"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ale.tuney.controller.MainController">
+
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+
+   <top>
+      <HBox onMouseDragged="#moveWindow" onMousePressed="#makeDraggable"
+            prefHeight="56.0" alignment="CENTER"
+            style="-fx-background-color: #141414; -fx-background-radius: 16;"
+            BorderPane.alignment="CENTER">
+         <BorderPane.margin><Insets bottom="10.0" /></BorderPane.margin>
+         <padding><Insets left="6.0" right="6.0" top="10.0" bottom="10.0" /></padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" minWidth="260.0" prefWidth="260.0" maxWidth="260.0">
+               <children>
+                  <HBox onMouseClicked="#toggleMenu" styleClass="menu-item" prefWidth="32.0" prefHeight="32.0" alignment="CENTER">
+                     <children>
+                        <Group>
+                           <SVGPath content="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" fill="white" scaleX="0.045" scaleY="0.045" />
+                        </Group>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <StackPane HBox.hgrow="ALWAYS" alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#backToHome" style="-fx-cursor: hand;">
+                     <image><Image url="@../../../images/logo.png" /></image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER_RIGHT" minWidth="260.0" prefWidth="260.0" maxWidth="260.0" spacing="8.0">
+               <children>
+                  <HBox onMouseClicked="#openNotifs" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" styleClass="window-btn" style="-fx-cursor: hand;">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <Group>
+                                 <SVGPath content="M320 64C306.7 64 296 74.7 296 88L296 97.7C214.6 109.3 152 179.4 152 264L152 278.5C152 316.2 142 353.2 123 385.8L101.1 423.2C97.8 429 96 435.5 96 442.2C96 463.1 112.9 480 133.8 480L506.2 480C527.1 480 544 463.1 544 442.2C544 435.5 542.2 428.9 538.9 423.2L517 385.7C498 353.1 488 316.1 488 278.4L488 263.9C488 179.3 425.4 109.2 344 97.6L344 87.9C344 74.6 333.3 63.9 320 63.9zM488.4 432L151.5 432L164.4 409.9C187.7 370 200 324.6 200 278.5L200 264C200 197.7 253.7 144 320 144C386.3 144 440 197.7 440 264L440 278.5C440 324.7 452.3 370 475.5 409.9L488.4 432zM252.1 528C262 556 288.7 576 320 576C351.3 576 378 556 387.9 528L252.1 528z"
+                                          styleClass="notification-icon" scaleX="0.045" scaleY="0.045" />
+                              </Group>
+                              <Circle fx:id="notificationDot" radius="5.0" fill="#ff4757" StackPane.alignment="TOP_RIGHT"
+                                      translateX="0.0" translateY="5.0" visible="false" managed="false" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="40.0" styleClass="profile-btn" onMouseClicked="#openProfile">
+                     <children>
+                        <ImageView fx:id="navProfilePicture" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image><Image url="@../../../images/user-solid.png" /></image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox styleClass="window-btn">
+                     <children>
+                        <ImageView fitWidth="32.0" fitHeight="32.0" onMouseClicked="#minimizeWindow" pickOnBounds="true" preserveRatio="true">
+                           <image><Image url="@../../../icon/window-minimize-solid.png" /></image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox styleClass="window-btn">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#maximizeRestoreWindow" pickOnBounds="true" preserveRatio="true">
+                           <image><Image url="@../../../icon/window-maximize-solid.png" /></image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox styleClass="window-btn">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#closeApp" pickOnBounds="true" preserveRatio="true">
+                           <image><Image url="@../../../icon/xmark-solid.png" /></image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+
+   <left>
+      <VBox fx:id="menuPane" prefWidth="251.0"
+            style="-fx-background-color: #141414; -fx-background-radius: 16;"
+            BorderPane.alignment="CENTER">
+         <BorderPane.margin><Insets right="10.0" /></BorderPane.margin>
+         <padding><Insets bottom="16.0" left="16.0" right="16.0" top="16.0" /></padding>
+         <children>
+            <HBox fx:id="menuToggleRow" alignment="CENTER_LEFT" prefHeight="32.0">
+               <children>
+                  <Label fx:id="menuTitle" text="Menu" textFill="WHITE">
+                     <font><Font size="26.0" /></font>
+                  </Label>
+                  <HBox HBox.hgrow="ALWAYS" />
+                  <HBox onMouseClicked="#toggleMenu" styleClass="menu-item" prefWidth="32.0" prefHeight="32.0" alignment="CENTER">
+                     <children>
+                        <Group fx:id="leftToggleIcon">
+                           <SVGPath content="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80v-560H200v560h440Zm80 0h40v-560h-40v560Zm0 0h40-40Z" fill="white" scaleX="-0.025" scaleY="0.025" />
+                        </Group>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Label fx:id="homeMenuItem" onMouseClicked="#backToHome" styleClass="menu-item" text="Home" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="cercaMenuItem" onMouseClicked="#openSearch" styleClass="menu-item" text="Cerca" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label onMouseClicked="#openSaved" styleClass="menu-item" text="Salvati" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label fx:id="profiloMenuItem" onMouseClicked="#openProfile" styleClass="menu-item" text="Profilo" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm146.5-204.5Q340-521 340-580t40.5-99.5Q421-720 480-720t99.5 40.5Q620-639 620-580t-40.5 99.5Q539-440 480-440t-99.5-40.5ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm100-95.5q47-15.5 86-44.5-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160q53 0 100-15.5ZM523-537q17-17 17-43t-17-43q-17-17-43-17t-43 17q-17 17-17 43t17 43q17 17 43 17t43-17Zm-43-43Zm0 360Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label onMouseClicked="#openSettings" styleClass="menu-item" text="Impostazioni" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Label onMouseClicked="#logout" styleClass="menu-item" text="Log-out" graphicTextGap="10">
+               <graphic>
+                  <StackPane prefWidth="24.0" minWidth="24.0" maxWidth="24.0" alignment="CENTER">
+                     <Group>
+                        <SVGPath content="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" fill="white" scaleX="0.02" scaleY="0.02" />
+                     </Group>
+                  </StackPane>
+               </graphic>
+               <font><Font size="18.0" /></font>
+            </Label>
+            <Separator prefWidth="200.0">
+               <padding><Insets bottom="30.0" top="30.0" /></padding>
+            </Separator>
+            <Label fx:id="recensioneMenuItem" onMouseClicked="#openReviewPage" styleClass="cta-button" text="Nuova Recensione">
+               <graphic>
+                  <SVGPath content="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="white" scaleX="0.9" scaleY="0.9"/>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+
+   <right>
+      <VBox fx:id="rightPane" prefWidth="251.0"
+            style="-fx-background-color: #141414; -fx-background-radius: 16;"
+            BorderPane.alignment="CENTER">
+         <BorderPane.margin><Insets left="10.0" /></BorderPane.margin>
+         <padding><Insets bottom="16.0" left="16.0" right="16.0" top="16.0" /></padding>
+         <children>
+            <HBox fx:id="rightToggleRow" alignment="CENTER_LEFT" prefHeight="32.0">
+               <children>
+                  <HBox onMouseClicked="#toggleRightPane" styleClass="menu-item" prefWidth="32.0" prefHeight="32.0" alignment="CENTER">
+                     <children>
+                        <Group>
+                           <SVGPath content="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80v-560H200v560h440Zm80 0h40v-560h-40v560Zm0 0h40-40Z" fill="white" scaleX="0.025" scaleY="0.025" />
+                        </Group>
+                     </children>
+                  </HBox>
+                  <HBox HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity">
+                     <children>
+                        <Label fx:id="rightTitle" text="Attività" textFill="WHITE">
+                           <font><Font size="26.0" /></font>
+                           <HBox.margin><Insets left="-25.0" /></HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin><Insets bottom="10.0" top="10.0" /></VBox.margin>
+            </Separator>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background: #141414; -fx-background-color: #141414; -fx-border-color: transparent; -fx-border-width: 0; -fx-background-insets: 0; -fx-padding: 0;">
+               <content>
+                  <VBox fx:id="activityPane" spacing="8.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </right>
+
+   <center>
+      <VBox style="-fx-background-color: #141414; -fx-background-radius: 16;"
+            BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER" prefHeight="50.0"
+               style="-fx-background-color: #141414; -fx-background-radius: 16 16 0 0;">
+            <padding><Insets bottom="3.0" top="8.0" /></padding>
+            <children>
+               <HBox fx:id="seguitiTab" onMouseClicked="#loadFollowing" styleClass="central-item" prefWidth="160.0" prefHeight="40.0" alignment="CENTER">
+                  <children>
+                     <VBox alignment="CENTER" spacing="0">
+                        <children>
+                           <Label text="Seguiti" textFill="WHITE">
+                              <font><Font size="26.0" /></font>
+                           </Label>
+                           <Rectangle fx:id="followingTabUnderline" width="60.0" height="2.0" fill="transparent" />
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+               <Separator opacity="0.28" orientation="VERTICAL" prefHeight="20.0">
+                  <HBox.margin><Insets left="3.0" right="3.0" /></HBox.margin>
+                  <padding><Insets left="5.0" right="5.0" /></padding>
+               </Separator>
+               <HBox fx:id="perTeTab" onMouseClicked="#loadForYou" styleClass="central-item" prefWidth="160.0" prefHeight="40.0" alignment="CENTER">
+                  <children>
+                     <VBox alignment="CENTER" spacing="0">
+                        <children>
+                           <Label text="Per te" textFill="WHITE">
+                              <font><Font size="26.0" /></font>
+                           </Label>
+                           <Rectangle fx:id="forYouTabUnderline" width="60.0" height="2.0" fill="transparent" />
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+         </HBox>
+         <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                     VBox.vgrow="ALWAYS"
+                     style="-fx-background: #141414; -fx-background-color: #141414; -fx-border-color: transparent; -fx-border-width: 0; -fx-background-insets: 0; -fx-padding: 0;">
+            <content>
+               <VBox fx:id="feedContainer" spacing="16.0" alignment="TOP_CENTER" style="-fx-background-color: #141414;">
+                  <padding><Insets bottom="16.0" left="15.0" right="15.0" top="16.0" /></padding>
+                  <children>
+                     <FlowPane fx:id="feedPane" hgap="16.0" vgap="16.0" alignment="TOP_LEFT" maxWidth="-Infinity" prefWrapLength="1200.0" />
+                  </children>
+               </VBox>
+            </content>
+         </ScrollPane>
+      </VBox>
+   </center>
+
+</BorderPane>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.shape.SVGPath?>
+<BorderPane
+        prefHeight="800.0"
+        prefWidth="1280.0"
+        style="-fx-background-color: #090909;"
+        stylesheets="@style.css"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.ale.tuney.controller.ProfileController">
+
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+    <center>
+        <ScrollPane fx:id="profileScrollPane" fitToHeight="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" BorderPane.alignment="CENTER"
+                    style="-fx-background: #090909; -fx-background-color: #090909;
+                           -fx-border-color: transparent; -fx-border-width: 0;
+                           -fx-background-insets: 0; -fx-padding: 0;">
+            <content>
+                <VBox fx:id="profileCenterVBox" style="-fx-background-color: #141414; -fx-background-radius: 16;">
+
+                    <!-- HEADER PROFILO -->
+                    <VBox alignment="CENTER" spacing="16.0">
+                        <padding><Insets bottom="24.0" left="40.0" right="40.0" top="24.0" /></padding>
+                <children>
+                    <!-- Info (sinistra) e Stats (destra) -->
+                    <HBox alignment="CENTER" spacing="50.0" minHeight="200.0">
+                        <children>
+                            <!-- Foto e Info (sinistra) -->
+                            <HBox spacing="30.0" alignment="CENTER_LEFT" prefWidth="600.0" maxWidth="640.0">
+                                <children>
+                                    <StackPane prefWidth="160.0" prefHeight="160.0" minWidth="160.0">
+                                        <children>
+                                            <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="160.0"
+                                                       pickOnBounds="true" preserveRatio="true" />
+                                        </children>
+                                    </StackPane>
+                                    <VBox spacing="0.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                        <children>
+                                            <Label fx:id="nomeLabel" text="" textFill="WHITE" wrapText="true">
+                                                <font><Font name="System Bold" size="32.0" /></font>
+                                            </Label>
+                                            <Label fx:id="usernameLabel" text="\@username" textFill="#9b6fd4">
+                                                <font><Font name="System Bold" size="15.0" /></font>
+                                            </Label>
+                                            <Label fx:id="bioLabel" text="" textFill="#dddddd"
+                                                wrapText="true" alignment="TOP_LEFT" minHeight="-Infinity" maxWidth="Infinity">
+                                                <font><Font size="14.0" /></font>
+                                                <VBox.margin><Insets top="6.0" /></VBox.margin>
+                                            </Label>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+
+                            <!-- Stats e Bottone (destra) -->
+                            <VBox spacing="24.0" alignment="CENTER" prefWidth="470.0">
+                                <children>
+                                    <HBox spacing="30.0" alignment="CENTER">
+                                        <children>
+                                            <VBox alignment="CENTER" spacing="4.0" prefWidth="118.0">
+                                                <children>
+                                                    <Label fx:id="reviewsCount" text="0" textFill="WHITE" alignment="CENTER">
+                                                        <font><Font name="System Bold" size="26.0" /></font>
+                                                    </Label>
+                                                    <Label text="recensioni" textFill="#888888" alignment="CENTER">
+                                                        <font><Font size="13.0" /></font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <VBox fx:id="followersBox" alignment="CENTER" spacing="4.0" prefWidth="118.0" onMouseClicked="#openFollowersPopup" style="-fx-cursor: hand;">
+                                                <children>
+                                                    <Label fx:id="followersCount" text="0" textFill="WHITE" alignment="CENTER">
+                                                        <font><Font name="System Bold" size="26.0" /></font>
+                                                    </Label>
+                                                    <Label text="followers" textFill="#888888" alignment="CENTER">
+                                                        <font><Font size="13.0" /></font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                            <VBox fx:id="followingBox" alignment="CENTER" spacing="4.0" prefWidth="118.0" onMouseClicked="#openFollowingPopup" style="-fx-cursor: hand;">
+                                                <children>
+                                                    <Label fx:id="followingCount" text="0" textFill="WHITE" alignment="CENTER">
+                                                        <font><Font name="System Bold" size="26.0" /></font>
+                                                    </Label>
+                                                    <Label text="seguiti" textFill="#888888" alignment="CENTER">
+                                                        <font><Font size="13.0" /></font>
+                                                    </Label>
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </HBox>
+                                    <Button fx:id="followButton" text="Segui" prefWidth="180.0" maxWidth="350.0" onAction="#onFollowOrEditClick"
+                                            style="-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 18; -fx-pref-height: 36; -fx-font-size: 14px; -fx-cursor: hand; -fx-font-weight: bold;" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <Separator opacity="0.3" />
+
+            <!-- TAB -->
+            <HBox alignment="CENTER" prefHeight="50.0" style="-fx-background-color: #141414;">
+                <padding><Insets bottom="8.0" top="8.0" /></padding>
+                <children>
+                    <HBox fx:id="feedTab" onMouseClicked="#mostraFeed" styleClass="central-item" prefWidth="80.0" maxWidth="80.0" prefHeight="40.0" alignment="CENTER" style="-fx-pref-width: 80px; -fx-max-width: 80px;">
+                        <children>
+                            <VBox alignment="CENTER" spacing="6.0">
+                                <children>
+                                    <StackPane prefHeight="28.0" alignment="CENTER">
+                                        <children>
+                                            <Group>
+                                                <SVGPath content="M500-360q42 0 71-29t29-71v-220h120v-80H560v220q-13-10-28-15t-32-5q-42 0-71 29t-29 71q0 42 29 71t71 29ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" fill="white" scaleX="0.03" scaleY="0.03" />
+                                            </Group>
+                                        </children>
+                                    </StackPane>
+                                    <Rectangle fx:id="feedTabUnderline" width="28.0" height="2.0" fill="transparent" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                    <Separator opacity="0.28" orientation="VERTICAL" prefHeight="20.0">
+                        <HBox.margin><Insets left="3.0" right="3.0" /></HBox.margin>
+                        <padding><Insets left="5.0" right="5.0" /></padding>
+                    </Separator>
+                    <HBox fx:id="attivitaTab" onMouseClicked="#showActivity" styleClass="central-item" prefWidth="80.0" maxWidth="80.0" prefHeight="40.0" alignment="CENTER" style="-fx-pref-width: 80px; -fx-max-width: 80px;">
+                        <children>
+                            <VBox alignment="CENTER" spacing="6.0">
+                                <children>
+                                    <StackPane prefHeight="28.0" alignment="CENTER">
+                                        <children>
+                                            <Group>
+                                                <SVGPath content="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm112-192 56-56-128-128v-184h-80v216l152 152ZM480-160q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z" fill="white" scaleX="0.03" scaleY="0.03" />
+                                            </Group>
+                                        </children>
+                                    </StackPane>
+                                    <Rectangle fx:id="activityTabUnderline" width="28.0" height="2.0" fill="transparent" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children>
+            </HBox>
+
+            <Separator opacity="0.3" />
+
+            <!-- CONTENUTO PROFILO -->
+            <VBox fx:id="profileContent" spacing="24.0"
+                  style="-fx-background-color: #141414; -fx-background-radius: 0 0 16 16;">
+                <padding><Insets bottom="24.0" left="24.0" right="24.0" top="24.0" /></padding>
+                        <children>
+                            <!-- Sezione Preferiti -->
+                            <VBox fx:id="favoritesSection" spacing="12.0">
+                                <children>
+                                    <Label text="Preferiti" textFill="WHITE">
+                                        <font><Font name="System Bold" size="20.0" /></font>
+                                    </Label>
+                                    <HBox fx:id="favoritesPane" spacing="16.0">
+                                        <padding><Insets bottom="8.0" top="4.0" /></padding>
+                                    </HBox>
+                                    <VBox fx:id="emptyFavoritesBox" spacing="8" alignment="CENTER_LEFT" visible="false" managed="false">
+                                        <children>
+                                            <Label fx:id="emptyFavoritesLabel" text="Non hai ancora aggiunto brani o album preferiti." textFill="#888888">
+                                                <font><Font size="16.0" /></font>
+                                            </Label>
+                                            <Button fx:id="addFavoritesBtn" text="Aggiungi preferiti" onAction="#onFollowOrEditClick"
+                                                    style="-fx-background-color: transparent; -fx-text-fill: #9b6fd4; -fx-border-color: #9b6fd4; -fx-border-radius: 12; -fx-background-radius: 12; -fx-font-size: 13px; -fx-cursor: hand; -fx-padding: 4 12 4 12;" />
+                                        </children>
+                                    </VBox>
+                                    <Separator opacity="0.3" />
+                                </children>
+                            </VBox>
+
+                            <!-- Sezione recensioni -->
+                            <VBox fx:id="reviewsSection" spacing="12.0">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT">
+                                        <children>
+                                            <Label text="Recensioni" textFill="WHITE">
+                                                <font><Font name="System Bold" size="20.0" /></font>
+                                            </Label>
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <ChoiceBox fx:id="reviewsSortOrder" prefWidth="140.0" styleClass="choice-box" />
+                                        </children>
+                                    </HBox>
+                                    <FlowPane fx:id="reviewsPane" hgap="16.0" vgap="16.0" alignment="TOP_LEFT">
+                                        <padding><Insets bottom="8.0" top="4.0" /></padding>
+                                    </FlowPane>
+                                    <VBox fx:id="emptyReviewsBox" spacing="8" alignment="CENTER_LEFT" visible="false" managed="false">
+                                        <children>
+                                            <Label fx:id="emptyReviewsLabel" text="Non hai ancora scritto recensioni." textFill="#888888">
+                                                <font><Font size="16.0" /></font>
+                                            </Label>
+                                        </children>
+                                    </VBox>
+                                    <!-- STATISTICHE RECENSIONI -->
+                                     <VBox fx:id="reviewsStatsBox" spacing="16.0">
+                                         <children>
+                                             <Separator opacity="0.3" />
+                                             <Label text="Statistiche" textFill="WHITE">
+                                                 <font><Font name="System Bold" size="20.0" /></font>
+                                             </Label>
+                                             
+                                             <!-- Box dati Statistiche -->
+                                             <VBox fx:id="statsDataBox" spacing="16.0" visible="false" managed="false">
+                                                 <children>
+                                                     <!-- Media voto -->
+                                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                                         <children>
+                                                             <VBox spacing="2.0">
+                                                                 <children>
+                                                                     <Label fx:id="avgRatingLabel" text="0.0" textFill="WHITE">
+                                                                         <font><Font name="System Bold" size="48.0" /></font>
+                                                                     </Label>
+                                                                     <Label fx:id="totalReviewsSublabel" text="media su 0 recensioni" textFill="#888888">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </VBox>
+                                                         </children>
+                                                     </HBox>
+                                                     
+                                                     <VBox spacing="8.0" style="-fx-padding: 8 0 8 0;">
+                                                         <children>
+                                                             <!-- Riga 5 -->
+                                                             <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                                 <children>
+                                                                     <Label text="5" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                         <font><Font name="System Bold" size="13.0" /></font>
+                                                                     </Label>
+                                                                     <ProgressBar fx:id="bar5" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                                     <Label fx:id="count5" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </HBox>
+                                                             <!-- Riga 4 -->
+                                                             <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                                 <children>
+                                                                     <Label text="4" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                         <font><Font name="System Bold" size="13.0" /></font>
+                                                                     </Label>
+                                                                     <ProgressBar fx:id="bar4" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                                     <Label fx:id="count4" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </HBox>
+                                                             <!-- Riga 3 -->
+                                                             <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                                 <children>
+                                                                     <Label text="3" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                         <font><Font name="System Bold" size="13.0" /></font>
+                                                                     </Label>
+                                                                     <ProgressBar fx:id="bar3" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                                     <Label fx:id="count3" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </HBox>
+                                                             <!-- Riga 2 -->
+                                                             <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                                 <children>
+                                                                     <Label text="2" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                         <font><Font name="System Bold" size="13.0" /></font>
+                                                                     </Label>
+                                                                     <ProgressBar fx:id="bar2" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                                     <Label fx:id="count2" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </HBox>
+                                                             <!-- Riga 1 -->
+                                                             <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                                                 <children>
+                                                                     <Label text="1" textFill="#888888" prefWidth="15.0" alignment="CENTER_LEFT">
+                                                                         <font><Font name="System Bold" size="13.0" /></font>
+                                                                     </Label>
+                                                                     <ProgressBar fx:id="bar1" progress="0.0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="stats-progress-bar" />
+                                                                     <Label fx:id="count1" text="0" textFill="#888888" prefWidth="40.0" alignment="CENTER_RIGHT">
+                                                                         <font><Font size="13.0" /></font>
+                                                                     </Label>
+                                                                 </children>
+                                                             </HBox>
+                                                         </children>
+                                                     </VBox>
+                                                 </children>
+                                             </VBox>
+                                             
+                                             <!-- Box Statistiche Vuote -->
+                                             <VBox fx:id="emptyStatsBox" spacing="8" alignment="CENTER_LEFT" visible="false" managed="false">
+                                                 <children>
+                                                     <Label fx:id="emptyStatsLabel" text="Non è possibile calcolare le statistiche: recensisci qualcosa per iniziare!" textFill="#888888">
+                                                         <font><Font size="16.0" /></font>
+                                                     </Label>
+                                                 </children>
+                                             </VBox>
+                                         </children>
+                                     </VBox>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
